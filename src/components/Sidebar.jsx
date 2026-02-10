@@ -2,14 +2,11 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   const items = [
+    { label: "ปลาทะเล", path: "/category/ปลาทะเล" },
     { label: "กุ้งทะเล", path: "/category/กุ้งทะเล" },
     { label: "ปูทะเล", path: "/category/ปูทะเล" },
     { label: "หมึกทะเล", path: "/category/หมึกทะเล" },
     { label: "หอยทะเล", path: "/category/หอยทะเล" },
-    { label: "สัตว์ทะเลอื่น", path: "/category/สัตว์ทะเลอื่น" },
-    { label: "ปลาน้ำจืด", path: "/category/ปลาน้ำจืด" },
-    { label: "กุ้งน้ำจืด", path: "/category/กุ้งน้ำจืด" },
-    { label: "สัตว์น้ำจืดอื่น", path: "/category/สัตว์น้ำจืดอื่น" },
   ];
 
   return (

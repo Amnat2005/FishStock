@@ -1,36 +1,53 @@
 import {
-  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
   Legend,
-  CartesianGrid,
+  ResponsiveContainer,
 } from "recharts";
 
-export default function FishLineChart({ data, seriesKeys }) {
+function FishLineChart({ data, seriesKeys }) {
+
+  const formattedData = data.map(d => ({
+    ...d,
+    ปี: Number(d["ปี"])
+  }));
+
+  const colors = ["#22c55e", "#eab308", "#06b6d4", "#ef4444"];
+
   return (
-    <div className="w-full h-full">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 10, right: 16, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="ปี" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          {seriesKeys.map((k, i) => (
-            <Line
-              key={k}
-              type="monotone"
-              dataKey={k}
-              dot={false}
-              strokeWidth={2}
-              stroke={`hsl(${(i * 45) % 360} 70% 45%)`}
-            />
-          ))}
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={formattedData}>
+        <CartesianGrid strokeDasharray="3 3" />
+
+        <XAxis
+          dataKey="ปี"
+          type="number"
+          domain={["dataMin", "dataMax"]}
+          interval={0}
+        />
+
+        <YAxis />
+
+        <Tooltip />
+        <Legend />
+
+        {seriesKeys.map((key, index) => (
+          <Line
+            key={key}
+            type="monotone"
+            dataKey={key}
+            stroke={colors[index]}
+            strokeWidth={2}
+            dot={false}
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
+
+export default FishLineChart;

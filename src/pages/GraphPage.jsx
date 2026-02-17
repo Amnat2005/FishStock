@@ -3,13 +3,11 @@ import useCsv from "../hooks/useCsv";
 import FishLineChart from "../components/FishLineChart";
 
 function GraphPage() {
-  const [mode, setMode] = useState("quantity"); // quantity | value
+  const [mode, setMode] = useState("quantity");
 
-  // โหลด CSV
   const { data: qtyData, error: qtyErr } = useCsv("/data/2.dofd07_05_0101_02_q.csv");
   const { data: valData, error: valErr } = useCsv("/data/2.dofd07_05_0101_02_v.csv");
 
-  // คีย์ “ตรงกับหัวคอลัมน์ CSV ของคุณ”
   const QTY_KEYS = [
     "ปริมาณรวม",
     "ปริมาณปลาทะเล",
@@ -29,60 +27,126 @@ function GraphPage() {
   const err = isQty ? qtyErr : valErr;
   const keys = isQty ? QTY_KEYS : VALUE_KEYS;
 
+  const latest =
+    data.length > 0 ? data[data.length - 1][keys[0]] : "-";
+
+  const max =
+    data.length > 0
+      ? Math.max(...data.map((d) => Number(d[keys[0]])))
+      : "-";
+
+  const min =
+    data.length > 0
+      ? Math.min(...data.map((d) => Number(d[keys[0]])))
+      : "-";
+
   return (
-    <div className="p-6 space-y-6">
-      {/* Title */}
-      <h1 className="text-2xl font-bold text-slate-800">📊 ข้อมูลสัตว์น้ำ</h1>
+    <div className="min-h-screen flex flex-col gap-6 p-6 
+      bg-gradient-to-br from-sky-50 via-white to-indigo-50">
 
-      {/* Toggle Buttons */}
-      <div className="flex gap-2">
-        <button
-          onClick={() => setMode("quantity")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-            mode === "quantity"
-              ? "bg-blue-600 text-white"
-              : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-          }`}
-        >
-          ปริมาณสัตว์น้ำ
-        </button>
-
-        <button
-          onClick={() => setMode("value")}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-            mode === "value"
-              ? "bg-blue-600 text-white"
-              : "bg-slate-200 text-slate-700 hover:bg-slate-300"
-          }`}
-        >
-          มูลค่าสัตว์น้ำ
-        </button>
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-slate-800">
+          ข้อมูลสัตว์น้ำเชิงสถิติ
+        </h1>
+        <p className="text-slate-500">
+          ระบบแสดงแนวโน้มปริมาณและมูลค่าทางเศรษฐกิจของสัตว์น้ำ
+        </p>
       </div>
 
-      {/* Graph Area */}
-      <div className="h-[420px] border-2 border-dashed rounded-lg bg-slate-50 p-3">
-        {err ? (
-          <div className="text-red-600">
-            โหลดกราฟไม่สำเร็จ: {err}
-            <div className="text-sm text-slate-600 mt-2">
-              เช็คว่าไฟล์อยู่ที่ public/data และเปิด /data/value.csv ได้
-            </div>
-          </div>
-        ) : data.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-slate-600">
-            กำลังโหลดข้อมูล...
-          </div>
-        ) : (
-          <FishLineChart data={data} seriesKeys={keys} />
-        )}
-      </div>
+      {/* Main Card */}
+      <div
+        className="rounded-2xl
+        bg-white/70 backdrop-blur-xl
+        border border-white/40
+        shadow-xl p-6"
+      >
+        {/* Toggle */}
+        <div className="flex gap-3 mb-6">
+          <button
+            onClick={() => setMode("quantity")}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300
+              ${
+                mode === "quantity"
+                  ? "bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-md"
+                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+              }`}
+          >
+            ปริมาณสัตว์น้ำ
+          </button>
 
-      {/* Description */}
-      <p className="text-sm text-slate-600">
-        {mode === "quantity"
-          ? "แสดงแนวโน้มปริมาณสัตว์น้ำในช่วงเวลาที่เลือก"
-          : "แสดงมูลค่าทางเศรษฐกิจของสัตว์น้ำในช่วงเวลาที่เลือก"}
-      </p>
+          <button
+            onClick={() => setMode("value")}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300
+              ${
+                mode === "value"
+                  ? "bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-md"
+                  : "bg-slate-200 text-slate-700 hover:bg-slate-300"
+              }`}
+          >
+            มูลค่าสัตว์น้ำ
+          </button>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          
+          <div className="bg-gradient-to-br from-sky-100 to-white rounded-xl p-4 shadow-sm border border-sky-200">
+            <p className="text-xs text-sky-700">ค่าล่าสุด</p>
+            <p className="text-xl font-bold text-sky-900">{latest}</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-emerald-100 to-white rounded-xl p-4 shadow-sm border border-emerald-200">
+            <p className="text-xs text-emerald-700">ค่าสูงสุด</p>
+            <p className="text-xl font-bold text-emerald-900">{max}</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-rose-100 to-white rounded-xl p-4 shadow-sm border border-rose-200">
+            <p className="text-xs text-rose-700">ค่าต่ำสุด</p>
+            <p className="text-xl font-bold text-rose-900">{min}</p>
+          </div>
+
+          <div className="bg-gradient-to-br from-indigo-100 to-white rounded-xl p-4 shadow-sm border border-indigo-200">
+            <p className="text-xs text-indigo-700">จำนวนปีข้อมูล</p>
+            <p className="text-xl font-bold text-indigo-900">
+              {data.length}
+            </p>
+          </div>
+
+        </div>
+
+        {/* Graph Area (แก้ปัญหา ResponsiveContainer แล้ว) */}
+        <div className="h-[450px] w-full rounded-xl
+          bg-gradient-to-br from-white to-sky-50
+          p-4 border border-slate-200/50 shadow-inner">
+
+          <div className="w-full h-full">
+
+            {err ? (
+              <div className="text-red-600 text-sm">
+                โหลดกราฟไม่สำเร็จ: {err}
+              </div>
+            ) : data.length === 0 ? (
+              <div className="h-full flex items-center justify-center text-slate-500">
+                กำลังโหลดข้อมูล...
+              </div>
+            ) : (
+              <FishLineChart data={data} seriesKeys={keys} />
+            )}
+
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="mt-6 text-sm text-slate-600 flex items-center gap-2">
+          <span className="text-lg">📈</span>
+          <span>
+            {mode === "quantity"
+              ? "แนวโน้มปริมาณสัตว์น้ำในช่วงหลายปีที่ผ่านมา"
+              : "แนวโน้มมูลค่าทางเศรษฐกิจของสัตว์น้ำในช่วงหลายปีที่ผ่านมา"}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

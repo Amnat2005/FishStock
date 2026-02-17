@@ -18,20 +18,20 @@ function MapPage() {
 
       {/* Map Section */}
       <div className="relative flex-1 h-[650px] rounded-2xl overflow-hidden shadow-xl">
-        {/* 🔽 Map อยู่ชั้นล่าง */}
+        {/* Map Layer */}
         <div className="absolute inset-0 z-0">
           <MapPlaceholder onSelectSpot={setSelectedSpot} />
         </div>
 
-        {/* 🔥 Glass Overlay Panel (อยู่ชั้นบนสุด) */}
+        {/* Glass Overlay Panel */}
         <div
           className="absolute top-6 right-6 w-[340px] max-h-[88%]
-             bg-white/55 backdrop-blur-2xl
-             border border-white/30
-             rounded-2xl shadow-xl
-             p-5 overflow-y-auto
-             z-50 pointer-events-auto
-             transition-all duration-300"
+          bg-white/55 backdrop-blur-2xl
+          border border-white/30
+          rounded-2xl shadow-xl
+          p-5 overflow-y-auto
+          z-50 pointer-events-auto
+          transition-all duration-300"
         >
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold text-slate-800">
@@ -42,11 +42,11 @@ function MapPage() {
               <button
                 onClick={() => setSelectedSpot(null)}
                 className="text-xs text-white
-             bg-slate-700
-             px-3 py-1 rounded-full
-             hover:bg-slate-800
-             active:scale-95
-             transition-all duration-200"
+                bg-slate-700
+                px-3 py-1 rounded-full
+                hover:bg-slate-800
+                active:scale-95
+                transition-all duration-200"
               >
                 รีเซ็ต
               </button>
@@ -66,9 +66,16 @@ function MapPage() {
 
               {/* Title */}
               <div>
-                <h3 className="text-2xl font-bold text-sky-600">
+                <h3
+                  className={`text-2xl font-bold ${
+                    selectedSpot.type === "restricted"
+                      ? "text-red-600"
+                      : "text-sky-600"
+                  }`}
+                >
                   {selectedSpot.name}
                 </h3>
+
                 <p className="text-xs text-slate-500">
                   พิกัด: {selectedSpot.position[0]}, {selectedSpot.position[1]}
                 </p>
@@ -78,24 +85,52 @@ function MapPage() {
 
               {/* Info */}
               <div className="space-y-3 text-sm text-slate-700 leading-relaxed">
+
+                {/* ประเภท */}
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🐟</span>
+                  <span className="text-lg">
+                    {selectedSpot.type === "restricted" ? "🚫" : "🎣"}
+                  </span>
                   <span>
-                    <strong>สัตว์น้ำเด่น:</strong> {selectedSpot.fish}
+                    <strong>ประเภท:</strong>{" "}
+                    {selectedSpot.type === "restricted"
+                      ? "เขตห้ามทำการประมง"
+                      : "แหล่งประมง"}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-lg">📊</span>
-                  <span>
-                    <strong>ปริมาณผลผลิต:</strong> {selectedSpot.production}
-                  </span>
-                </div>
+                {selectedSpot.type === "fishing" ? (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">🐠</span>
+                      <span>
+                        <strong>สัตว์น้ำเด่น:</strong> {selectedSpot.fish}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">📊</span>
+                      <span>
+                        <strong>ปริมาณผลผลิต:</strong>{" "}
+                        {selectedSpot.production}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-start gap-2">
+                    <span className="text-lg mt-1">⚠️</span>
+                    <span>
+                      <strong>เหตุผลการห้าม:</strong>{" "}
+                      {selectedSpot.reason}
+                    </span>
+                  </div>
+                )}
 
                 <div className="flex items-start gap-2">
                   <span className="text-lg mt-1">📝</span>
                   <span>{selectedSpot.description}</span>
                 </div>
+
               </div>
             </div>
           ) : (

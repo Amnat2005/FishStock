@@ -1,40 +1,60 @@
 import { NavLink } from "react-router-dom";
 
-function Sidebar() {
-  const items = [
-    { label: "ปลาทะเล", path: "/category/ปลาทะเล" },
-    { label: "กุ้งทะเล", path: "/category/กุ้งทะเล" },
-    { label: "ปูทะเล", path: "/category/ปูทะเล" },
-    { label: "หมึกทะเล", path: "/category/หมึกทะเล" },
-    { label: "หอยทะเล", path: "/category/หอยทะเล" },
-  ];
+function Navbar() {
+  const linkStyle =
+    "relative px-4 py-2 text-sm font-medium transition-all duration-300";
+
+  const activeStyle =
+    "text-white after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-sky-400";
+
+  const inactiveStyle =
+    "text-slate-300 hover:text-white hover:scale-105";
 
   return (
-    <aside className="w-64 bg-slate-100 h-full border-r p-4">
-      <h2 className="font-semibold mb-4 text-slate-700">
-        ประเภทสัตว์น้ำ
-      </h2>
+    <nav className="sticky top-0 z-50 backdrop-blur-md 
+      bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900
+      shadow-lg border-b border-blue-800">
 
-      <ul className="space-y-1 text-sm">
-        {items.map((item) => (
+      <div className="max-w-7xl mx-auto h-16 px-6 flex items-center justify-between">
+
+        {/* Logo */}
+        <div className="text-xl font-bold tracking-wide text-white">
+          🐟 FishStock
+        </div>
+
+        {/* Menu */}
+        <div className="flex items-center gap-6">
           <NavLink
-            key={item.path}
-            to={item.path}
+            to="/"
             className={({ isActive }) =>
-              `
-              block p-2 rounded transition
-              ${isActive
-                ? "bg-blue-200 text-blue-900 font-semibold"
-                : "text-slate-700 hover:bg-blue-100 hover:text-blue-900"}
-              `
+              `${linkStyle} ${isActive ? activeStyle : inactiveStyle}`
             }
           >
-            {item.label}
+            Map
           </NavLink>
-        ))}
-      </ul>
-    </aside>
+
+          <NavLink
+            to="/graph"
+            className={({ isActive }) =>
+              `${linkStyle} ${isActive ? activeStyle : inactiveStyle}`
+            }
+          >
+            Graph
+          </NavLink>
+
+          <NavLink
+            to="/price"
+            className={({ isActive }) =>
+              `${linkStyle} ${isActive ? activeStyle : inactiveStyle}`
+            }
+          >
+            Price
+          </NavLink>
+        </div>
+
+      </div>
+    </nav>
   );
 }
 
-export default Sidebar;
+export default Navbar;

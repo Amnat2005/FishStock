@@ -1,60 +1,51 @@
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
-  const linkStyle =
-    "relative px-4 py-2 text-sm font-medium transition-all duration-300";
-
-  const activeStyle =
-    "text-white after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-sky-400";
-
-  const inactiveStyle =
-    "text-slate-300 hover:text-white hover:scale-105";
+function Sidebar() {
+  const items = [
+    { label: "ปลาทะเล", path: "/category/ปลาทะเล" },
+    { label: "กุ้งทะเล", path: "/category/กุ้งทะเล" },
+    { label: "ปูทะเล", path: "/category/ปูทะเล" },
+    { label: "หมึกทะเล", path: "/category/หมึกทะเล" },
+    { label: "หอยทะเล", path: "/category/หอยทะเล" },
+  ];
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-md 
-      bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900
-      shadow-lg border-b border-blue-800">
-
-      <div className="max-w-7xl mx-auto h-16 px-6 flex items-center justify-between">
-
-        {/* Logo */}
-        <div className="text-xl font-bold tracking-wide text-white">
-          🐟 FishStock
-        </div>
-
-        {/* Menu */}
-        <div className="flex items-center gap-6">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `${linkStyle} ${isActive ? activeStyle : inactiveStyle}`
-            }
-          >
-            Map
-          </NavLink>
-
-          <NavLink
-            to="/graph"
-            className={({ isActive }) =>
-              `${linkStyle} ${isActive ? activeStyle : inactiveStyle}`
-            }
-          >
-            Graph
-          </NavLink>
-
-          <NavLink
-            to="/price"
-            className={({ isActive }) =>
-              `${linkStyle} ${isActive ? activeStyle : inactiveStyle}`
-            }
-          >
-            Price
-          </NavLink>
-        </div>
-
+    <aside
+      className="w-64 h-full 
+      bg-gradient-to-b from-white to-sky-50
+      border-r border-sky-100 
+      shadow-sm p-6"
+    >
+      
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold text-slate-800">ประเภทสัตว์น้ำ</h2>
+        <div className="w-12 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full mt-2"></div>
       </div>
-    </nav>
+
+      <ul className="space-y-2 text-sm">
+        {items.map((item) => (
+          <li key={item.path}>
+            <NavLink
+              to={item.path}
+              className={({ isActive }) =>
+                `
+                block px-4 py-2 rounded-lg
+                transition-all duration-200
+                ${
+                  isActive
+                    ? "bg-white text-sky-700 font-semibold shadow-md border border-sky-200"
+                    : "text-slate-600 hover:bg-white hover:text-sky-700 hover:shadow-sm"
+                }
+                `
+              }
+            >
+              {item.label}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 }
 
-export default Navbar;
+export default Sidebar;

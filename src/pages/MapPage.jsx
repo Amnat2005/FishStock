@@ -126,30 +126,49 @@ function PanelContent({ selectedSpot, setSelectedSpot }) {
 
           {/* Info */}
           <div className="space-y-3 text-sm text-slate-700 leading-relaxed">
-            <div>
-              <strong>ประเภท:</strong>{" "}
-              {selectedSpot.type === "restricted"
-                ? "เขตห้ามทำการประมง"
-                : "แหล่งประมง"}
+            {/* ประเภท */}
+            <div className="flex items-center gap-2">
+              <span className="text-lg">
+                {selectedSpot.type === "restricted" ? "🚫" : "🎣"}
+              </span>
+              <span>
+                <strong>ประเภท:</strong>{" "}
+                {selectedSpot.type === "restricted"
+                  ? "เขตห้ามทำการประมง"
+                  : "แหล่งประมง"}
+              </span>
             </div>
 
             {selectedSpot.type === "fishing" ? (
               <>
-                <div>
-                  <strong>สัตว์น้ำเด่น:</strong> {selectedSpot.fish}
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">🐠</span>
+                  <span>
+                    <strong>สัตว์น้ำเด่น:</strong> {selectedSpot.fish}
+                  </span>
                 </div>
-                <div>
-                  <strong>ปริมาณผลผลิต:</strong> {selectedSpot.production}
+
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">📊</span>
+                  <span>
+                    <strong>ปริมาณผลผลิต:</strong> {selectedSpot.production}
+                  </span>
                 </div>
               </>
             ) : (
-              <div>
-                <strong>เหตุผลการห้าม:</strong> {selectedSpot.reason}
+              <div className="flex items-start gap-2">
+                <span className="text-lg mt-1">⚠️</span>
+                <span>
+                  <strong>เหตุผลการห้าม:</strong> {selectedSpot.reason}
+                </span>
               </div>
             )}
 
-            <div>
-              <strong>รายละเอียด:</strong> {selectedSpot.description}
+            <div className="flex items-start gap-2">
+              <span className="text-lg mt-1">📝</span>
+              <span>
+                <strong>รายละเอียด:</strong> {selectedSpot.description}
+              </span>
             </div>
           </div>
         </div>

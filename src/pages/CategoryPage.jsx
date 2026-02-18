@@ -89,55 +89,103 @@ function CategoryPage() {
   if (!category) return <p>ไม่พบข้อมูล</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 py-16 px-4 md:px-6">
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-white shadow-xl rounded-3xl p-8 md:p-14 border border-slate-100">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 py-10 sm:py-14 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div
+          className="bg-white shadow-lg lg:shadow-xl rounded-2xl lg:rounded-3xl 
+                      p-6 sm:p-8 md:p-12 lg:p-16 
+                      border border-slate-100"
+        >
           {/* Header */}
-          <div className="mb-14">
-            <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 tracking-tight">
+          <div className="mb-10 sm:mb-14">
+            <h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
+                         font-semibold text-slate-900 tracking-tight leading-snug"
+            >
               {category.title}
             </h1>
-            <div className="w-50 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full mt-6"></div>
+
+            <div
+              className="h-[3px] w-32 sm:w-40 md:w-52 lg:w-64 
+                          bg-gradient-to-r from-sky-500 to-indigo-500 
+                          rounded-full mt-5 sm:mt-6"
+            ></div>
           </div>
 
           {/* Hero Image */}
-          <div className="group overflow-hidden rounded-3xl mb-14">
+          <div className="group overflow-hidden rounded-2xl lg:rounded-3xl mb-10 sm:mb-14">
             <img
               src={category.hero}
               alt=""
-              className="w-full h-[380px] object-cover group-hover:scale-105 transition duration-500"
+              className="w-full 
+                       h-56 sm:h-72 md:h-80 lg:h-[420px]
+                       object-cover 
+                       group-hover:scale-105 
+                       transition duration-500"
             />
           </div>
 
           {/* Paragraph 1-2 */}
-          <div className="space-y-8 text-lg leading-9 text-slate-600 max-w-3xl mx-auto">
+          <div
+            className="space-y-6 sm:space-y-8 
+                        text-base sm:text-lg 
+                        leading-7 sm:leading-9 
+                        text-slate-600 
+                        max-w-3xl mx-auto"
+          >
             <p className="text-slate-700">{category.paragraphs[0]}</p>
             <p>{category.paragraphs[1]}</p>
           </div>
 
           {/* Mid Image */}
-          <div className="group overflow-hidden rounded-2xl my-16">
+          <div
+            className="group overflow-hidden rounded-xl lg:rounded-2xl 
+                        my-12 sm:my-16"
+          >
             <img
               src={category.midImage}
               alt=""
-              className="w-full h-[320px] object-cover group-hover:scale-105 transition duration-500"
+              className="w-full 
+                       h-52 sm:h-64 md:h-72 lg:h-[360px]
+                       object-cover 
+                       group-hover:scale-105 
+                       transition duration-500"
             />
           </div>
 
-          <div className="space-y-8 text-lg leading-9 text-slate-600 max-w-3xl mx-auto">
+          <div
+            className="space-y-6 sm:space-y-8 
+                        text-base sm:text-lg 
+                        leading-7 sm:leading-9 
+                        text-slate-600 
+                        max-w-3xl mx-auto"
+          >
             <p>{category.paragraphs[2]}</p>
           </div>
 
           {/* Bottom Image */}
-          <div className="group overflow-hidden rounded-2xl my-16">
+          <div
+            className="group overflow-hidden rounded-xl lg:rounded-2xl 
+                        my-12 sm:my-16"
+          >
             <img
               src={category.bottomImage}
               alt=""
-              className="w-full h-[320px] object-cover group-hover:scale-105 transition duration-500"
+              className="w-full 
+                       h-52 sm:h-64 md:h-72 lg:h-[360px]
+                       object-cover 
+                       group-hover:scale-105 
+                       transition duration-500"
             />
           </div>
 
-          <div className="space-y-8 text-lg leading-9 text-slate-600 max-w-3xl mx-auto">
+          <div
+            className="space-y-6 sm:space-y-8 
+                        text-base sm:text-lg 
+                        leading-7 sm:leading-9 
+                        text-slate-600 
+                        max-w-3xl mx-auto"
+          >
             <p>{category.paragraphs[3]}</p>
           </div>
         </div>

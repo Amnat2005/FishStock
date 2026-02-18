@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, ZoomControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -30,7 +30,7 @@ function MapPlaceholder({ onSelectSpot }) {
   const spots = [
     // 🟢 แหล่งประมง
     {
-      type: "fishing", 
+      type: "fishing",
       name: "ชุมพร (ทะเลอ่าวไทย)",
       position: [10.45, 99.45],
       fish: "ปลาทู, ปลากะตัก, ปลาลัง, หมึกกล้วย",
@@ -40,7 +40,7 @@ function MapPlaceholder({ onSelectSpot }) {
       image: "../assets/Chumphon_gulf.jpg",
     },
     {
-      type: "fishing", 
+      type: "fishing",
       name: "ระยอง (ทะเลอ่าวไทย)",
       position: [12.6, 101.3],
       fish: "ปลาหลังเขียว, ปลากะตัก, กุ้งทะเล, ปูม้า",
@@ -50,9 +50,9 @@ function MapPlaceholder({ onSelectSpot }) {
       image: "../assets/Rayong_gulf.webp",
     },
     {
-      type: "fishing", 
+      type: "fishing",
       name: "สงขลา (ทะเลอ่าวไทย)",
-      position: [7.15, 100.80],
+      position: [7.15, 100.8],
       fish: "ปลาทู, ปลากะพง, หมึก, ปลาสีกุน",
       production: "ประมาณ 18,000–22,000 ตัน/ปี",
       description:
@@ -60,7 +60,7 @@ function MapPlaceholder({ onSelectSpot }) {
       image: "../assets/Songkla_gulf.jpg",
     },
     {
-      type: "fishing", 
+      type: "fishing",
       name: "ระนอง (ทะเลอันดามัน)",
       position: [9.9, 98.6],
       fish: "ปูม้า, กุ้งขาว, ปลากะพงแดง, ปลาทะเลลึก",
@@ -70,9 +70,9 @@ function MapPlaceholder({ onSelectSpot }) {
       image: "../assets/Ranong_andaman.jpg",
     },
     {
-      type: "fishing", 
+      type: "fishing",
       name: "ภูเก็ต (ทะเลอันดามัน)",
-      position: [7.97, 98.20],
+      position: [7.97, 98.2],
       fish: "ปลาทูน่า, ปลากะพงแดง, หมึกกล้วย, ปลาอินทรี",
       production: "ประมาณ 16,000–20,000 ตัน/ปี",
       description:
@@ -80,7 +80,7 @@ function MapPlaceholder({ onSelectSpot }) {
       image: "../assets/Puket_andaman.jfif",
     },
     {
-      type: "fishing", 
+      type: "fishing",
       name: "สตูล (ทะเลอันดามัน)",
       position: [6.68, 99.75],
       fish: "หมึกกล้วย, ปลาอินทรี, ปลากะพงแดง, ปูทะเล",
@@ -130,13 +130,22 @@ function MapPlaceholder({ onSelectSpot }) {
   ];
 
   return (
-    <div className="w-full h-full rounded-xl overflow-hidden shadow-lg">
+    <div className="w-full h-full relative rounded-xl overflow-hidden shadow-lg">
       <MapContainer
         center={[10.5, 100]}
         zoom={6}
         scrollWheelZoom={true}
+        zoomControl={false}
         className="w-full h-full"
+        style={{ zIndex: 0 }}
       >
+        <ZoomControl position="bottomleft" />
+
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; OpenStreetMap contributors"
+        />
+
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"

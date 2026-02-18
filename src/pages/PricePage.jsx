@@ -214,12 +214,12 @@ function PricePage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white p-8">
-      <div className="max-w-6xl mx-auto space-y-10">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-semibold text-slate-900 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
               ราคาสัตว์น้ำ
             </h1>
             <p className="text-sm text-slate-500 mt-1">
@@ -228,30 +228,30 @@ function PricePage() {
           </div>
 
           {/* Search */}
-          <div className="relative w-full md:w-96">
+          <div className="relative w-full lg:w-96">
             <input
               type="text"
               placeholder="ค้นหาชื่อสัตว์น้ำ..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="
-                w-full
-                px-4 py-3
-                border border-slate-200
-                rounded-xl
-                bg-white
-                text-sm
-                shadow-sm
-                focus:outline-none
-                focus:ring-2
-                focus:ring-sky-400
-                transition
-              "
+              w-full
+              px-4 py-3
+              border border-slate-200
+              rounded-xl
+              bg-white
+              text-sm
+              shadow-sm
+              focus:outline-none
+              focus:ring-2
+              focus:ring-sky-400
+              transition
+            "
             />
           </div>
         </div>
 
-        {/* Card List */}
+        {/* Card List (แถวเดียวทุกจอ) */}
         <div className="space-y-6">
           {filteredData.length === 0 && (
             <p className="text-slate-400 text-center">
@@ -263,37 +263,41 @@ function PricePage() {
             <div
               key={index}
               className="
-        group
-        flex flex-col md:flex-row gap-6
-        bg-white
-        border border-slate-200
-        rounded-2xl
-        p-6
-        hover:shadow-xl
-        hover:-translate-y-1
-        transition-all duration-300
-      "
+              group
+              flex flex-col md:flex-row
+              gap-6
+              bg-white
+              border border-slate-200
+              rounded-2xl
+              p-6
+              hover:shadow-xl
+              hover:-translate-y-1
+              transition-all duration-300
+            "
             >
+              {/* Image */}
               <img
                 src={item.image}
                 alt={item.name}
                 className="
-          w-full md:w-50 h-52 md:h-32
-          object-cover
-          rounded-xl
-          group-hover:scale-105
-          transition duration-300
-        "
+                w-full md:w-56
+                h-52 md:h-36
+                object-cover
+                rounded-xl
+                group-hover:scale-105
+                transition duration-300
+              "
               />
 
+              {/* Content */}
               <div className="flex flex-col justify-between flex-1">
                 <div>
                   <div className="flex items-center justify-between flex-wrap gap-2">
-                    <h2 className="text-xl font-semibold text-slate-900">
+                    <h2 className="text-lg sm:text-xl font-semibold text-slate-900">
                       {item.name}
                     </h2>
 
-                    <span className="text-sm text-sky-600 font-medium">
+                    <span className="text-xs sm:text-sm text-sky-600 font-medium">
                       {item.type}
                     </span>
                   </div>
@@ -303,10 +307,11 @@ function PricePage() {
                   </p>
                 </div>
 
-                <div className="mt-6 flex items-end justify-between">
+                {/* Price */}
+                <div className="mt-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
                   <span className="text-xs text-slate-400">ราคาเฉลี่ย</span>
 
-                  <span className="text-2xl font-bold text-sky-700">
+                  <span className="text-2xl sm:text-3xl font-bold text-sky-700">
                     {item.price}
                     <span className="text-sm font-medium text-slate-500 ml-1">
                       บาท/กก.

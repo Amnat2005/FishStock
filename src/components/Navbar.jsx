@@ -19,7 +19,7 @@ function Navbar() {
 
         {/* Logo */}
         <div className="text-xl font-bold tracking-wide text-white">
-          🐟 FishStock
+          🐟 FishStock Manager
         </div>
 
         {/* Menu */}

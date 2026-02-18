@@ -19,7 +19,7 @@ function Sidebar() {
       
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-slate-800">ประเภทสัตว์น้ำ</h2>
-        <div className="w-12 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full mt-2"></div>
+        <div className="w-25 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full mt-2"></div>
       </div>
 
       <ul className="space-y-2 text-sm">
